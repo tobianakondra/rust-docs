@@ -66,6 +66,32 @@ export const DANGLE_ERROR = `error[E0106]: missing lifetime specifier
   |
   = help: consider introducing a named lifetime parameter`;
 
+// Second cas d'école : la référence vit dans une portée PLUS LARGE que son
+// propriétaire. Les commentaires numérotés guident la lecture ligne par ligne
+// (convention pédagogique de ce chapitre : pas de guillemets doubles dans les
+// commentaires, pour ne pas perturber la coloration syntaxique).
+export const SCOPE_DANGLE_SNIPPET = `fn main() {
+    let reference_titre; // 1. on reserve un nom pour une future reference
+    {
+        let titre = String::from("Rust"); // 2. le proprietaire nait ici
+        reference_titre = &titre; // 3. emprunt : simple adresse vers titre
+    } // 4. fin du bloc : titre est detruit, l'adresse ne mène plus nulle part
+    println!("{}", reference_titre); // 5. refuse : usage apres destruction
+}`;
+
+export const SCOPE_DANGLE_ERROR = `error[E0597]: titre does not live long enough
+ --> src/main.rs:4:27
+  |
+2 |         let titre = String::from("Rust");
+  |             ----- binding titre declared here
+3 |         reference_titre = &titre;
+  |                           ^^^^^ borrowed value does not live long enough
+4 |     }
+  |     - titre dropped here while still borrowed
+5 |
+6 |     println!("{}", reference_titre);
+  |                --------------- borrow later used here`;
+
 export const SLICE_SNIPPET = `let titre = String::from("bonjour le monde");
 let debut = &titre[0..7]; // vue partielle : sans propriete
 println!("{}", debut); // affiche bonjour`;
