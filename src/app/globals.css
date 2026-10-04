@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0e17;
+  color: #cbd5e1;
+  font-family: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background-color: rgb(234 88 12 / 0.25);
+}
+
+.rust-code-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.rust-code-scroll::-webkit-scrollbar-thumb {
+  background: rgb(30 41 59);
+  border-radius: 4px;
+}
